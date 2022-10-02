@@ -7,6 +7,7 @@
 	import random from 'canvas-sketch-util/random';
 	import palettes from 'nice-color-palettes';
 	import { randomizeMesh } from './randomizeMesh';
+	import BezierEasing from 'bezier-easing';
 
 	let context: any;
 
@@ -70,6 +71,8 @@
 		light.position.set(0, 4, 0);
 		scene.add(light);
 
+		const easeFn = BezierEasing(0.67, 0.03, 0.29, 0.99);
+
 		context.appendChild(renderer.domElement);
 
 		let time = 0;
@@ -77,21 +80,21 @@
 			requestAnimationFrame(render);
 			time += 0.001;
 
-			// scene.rotation.z = Math.sin(time * 100 * Math.PI);
+			scene.rotation.z = easeFn(time * 2);
 
 			// Animate each mesh with noise
-			meshes.forEach((mesh) => {
-				const f = 0.5;
-				mesh.position.x =
-					(mesh as any).originalPosition.x +
-					0.25 *
-						random.noise3D(
-							mesh.position.x * f,
-							mesh.position.y * f,
-							mesh.position.z * f,
-							time * 0.25
-						);
-			});
+			// meshes.forEach((mesh) => {
+			// 	const f = 0.5;
+			// 	mesh.position.x =
+			// 		(mesh as any).originalPosition.x +
+			// 		0.25 *
+			// 			random.noise3D(
+			// 				mesh.position.x * f,
+			// 				mesh.position.y * f,
+			// 				mesh.position.z * f,
+			// 				time * 0.25
+			// 			);
+			// });
 			// Rotate mesh
 			if (settings.orbit) controls.update();
 			// Draw scene with our camera
