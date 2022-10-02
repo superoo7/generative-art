@@ -33,6 +33,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@types/seed-random": "^2.2.1",
+		"canvas-sketch-util": "^1.10.0",
+		"nice-color-palettes": "^3.0.0",
+		"seed-random": "^2.2.0",
 		"three": "^0.145.0"
 	}
 }
