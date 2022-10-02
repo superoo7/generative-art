@@ -76,9 +76,17 @@
 		context.appendChild(renderer.domElement);
 
 		let time = 0;
+		const MAX_VALUE = 2;
+		let direction = "positive";
 		const render = () => {
 			requestAnimationFrame(render);
-			time += 0.001;
+			if(time > MAX_VALUE) {
+				direction = "negative";
+			} else if(time <= 0) {
+				direction = "positive";
+			}
+			const SENSITIVITY = 0.001;
+			time = direction === "positive" ? time + SENSITIVITY : time - SENSITIVITY;
 
 			scene.rotation.z = easeFn(time * 2);
 
